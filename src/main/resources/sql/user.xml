@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.folder.app.mapper.UserMapper">
+	
+	<select id="selectNo" resultType="com.folder.app.dto.UserDTO">
+		SELECT LAST_INSERT_ID() AS no
+	</select>
+	
+	<select id="selectAll" resultType="com.folder.app.dto.UserDTO">
+		SELECT `no`, `name`, `email`,`pwd`, `gender`, `delYN`, 
+					date_format(`regDate`, '%Y-%m-%d') as regDate 
+		FROM user
+		WHERE  `delYN` = 'N'
+	</select>
+	
+	<select id="selectOne" parameterType="com.folder.app.dto.UserDTO" resultType="com.folder.app.dto.UserDTO">
+		SELECT `no`, `name`, `email`,`pwd`, `gender`, `delYN`, 
+					date_format(`regDate`, '%Y-%m-%d') as regDate 
+		FROM user
+		WHERE `no` = #{no} 
+		    AND `delYN` = 'N'
+	</select>
+  
+	<insert id="insert" parameterType="com.folder.app.dto.UserDTO">
+		INSERT INTO user 
+			(`name`, `email`, `pwd`, `gender`) 
+		VALUE
+			(#{name}, #{email}, #{pwd}, #{gender})
+	</insert>
+	
+	<update id="update" parameterType="com.folder.app.dto.UserDTO">
+		UPDATE user SET 
+			`name` = #{name},
+			`email` = #{email}, 
+			`pwd` = #{pwd},
+			`gender` = #{gender} 
+		WHERE `no` = #{no}
+	</update>
+		
+	<update id="delete" parameterType="com.folder.app.dto.UserDTO">
+		UPDATE user SET 
+			`delYn` = 'Y' 
+		WHERE `no` = #{no}
+	</update>	
+  
+</mapper>

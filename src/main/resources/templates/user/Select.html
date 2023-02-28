@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사용자 정보</title>
+<link rel="icon" href="/img/logo.png" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/lib/bootstrap@5.2.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="/lib/bootstrap@5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/jquery@3.6.3/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container mt-3">
+	  <h1 class="display-1 text-center">사용자 정보</h1>
+		<form>
+		  <div class="mb-3 mt-3">
+		    <label for="name" class="form-label">이름:</label>
+		    <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요." name="name" readonly="readonly" th:value="${result.row.name}">
+		  </div>
+		  <div class="mb-3 mt-3">
+		    <label for="email" class="form-label">이메일:</label>
+		    <input type="email" class="form-control" id="email" placeholder="이메일를 입력하세요." name="email" readonly="readonly" th:value="${result.row.email}">
+		  </div>
+		  <th:block th:if="${result.row.gender == '1'}">
+		  	<div class="form-check">
+				<input type="radio" class="form-check-input" id="radio1" name="gender" value="1" checked>남성
+			</div>
+		  </th:block>
+		  <th:block th:if="${result.row.gender == '2'}">
+		  	<div class="form-check">
+				<input type="radio" class="form-check-input" id="radio2" name="gender" value="2" checked>여성
+			</div>
+		  </th:block>
+		</form>
+		<div class="d-flex">
+		  <div class="p-2 flex-fill d-grid">
+		  	<a th:href="@{/user/update(no=${result.row.no})}" class="btn btn-primary">수정</a>
+		  </div>
+		  <div class="p-2 flex-fill d-grid">
+		  	<a th:href="@{/user/delete(no=${result.row.no})}" class="btn btn-primary">삭제</a>
+		  </div>
+		  <div class="p-2 flex-fill d-grid">
+			<a href="/user/list" class="btn btn-primary">취소</a>  
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

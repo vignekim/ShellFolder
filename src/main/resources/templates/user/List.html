@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사용자 목록</title>
+<link rel="icon" href="/img/logo.png" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/lib/bootstrap@5.2.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="/lib/bootstrap@5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/jquery@3.6.3/jquery.min.js"></script>
+
+<link href="/css/user.css" rel="stylesheet">
+<script src="/js/user.js"></script>
+</head>
+<body>
+	<div class="container mt-3">
+	  <h1 class="display-1 text-center">사용자 목록</h1>
+	  <div class="btn-group">
+	    <a href="/user/create" class="btn btn-primary">사용자 추가</a>
+	  </div>
+	  <table class="table table-hover mt-3">
+	    <thead class="table-dark">
+			<tr>
+				<th>이름</th>
+				<th>이메일</th>
+				<th>가입날짜</th>
+			</tr>
+	    </thead>
+	    <tbody>
+	    <th:block th:if="${result.state}">
+			<tr class="cursor-pointer" th:each="user : ${result.row}">
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.email}"></td>
+				<td th:text="${user.regDate}"></td>
+				<td th:text="${user.no}" class="d-none"></td>
+			</tr>
+	    </th:block>
+	    <th:block th:if="${!result.state}">
+	    	<tr class="cursor-pointer">
+	    		<td colspan="3" class="text-center">사용자가 없습니다.</td>
+	    	</tr>
+	    </th:block>
+	    </tbody>
+	  </table>
+	</div>
+</body>
+</html>
